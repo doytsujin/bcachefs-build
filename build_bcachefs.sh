@@ -17,7 +17,7 @@ cd "${BUILD_DIR}"/bcachefs/
 git fetch origin master
 git branch -f master origin/master 2>/dev/null || git reset --hard origin/master
 git checkout master
-git clean -f
+git clean -fx
 
 make clean
 if [ ! -e .config ]; then
@@ -53,7 +53,7 @@ cd "${BUILD_DIR}/bcachefs-tools"
 git fetch origin master
 git branch -f master origin/master 2>/dev/null || git reset --hard origin/master
 git checkout master
-git clean -f
+git clean -fx
 
 #apt install pkg-config
 #apt install libblkid-dev uuid-dev libscrypt-dev libsodium-dev libkeyutils-dev liburcu-dev zlib1g-dev libzstd-dev libattr1-dev libaio-dev liblz4-dev
