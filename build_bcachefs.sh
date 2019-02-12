@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 # -*- coding: utf-8 -*-
 set -e
 #apt install kernel-package fakeroot libssl-dev ccache
@@ -8,7 +8,7 @@ set -e
 
 BUILD_DIR="${HOME}/prgsrc"
 
-if [ ! -e "${BUILD_DIR}/bcachefs" ]; then
+if [ ! -e "${BUILD_DIR}/bcachefs/.git" ]; then
     git clone https://evilpiepirate.org/git/bcachefs.git "${BUILD_DIR}/bcachefs"
 fi
 
@@ -17,7 +17,7 @@ cd "${BUILD_DIR}"/bcachefs/
 git fetch origin master
 git branch -f master origin/master 2>/dev/null || git reset --hard origin/master
 git checkout master
-git clean -fx
+git clean -fx -e "/.config"
 
 make clean
 if [ ! -e .config ]; then
@@ -44,7 +44,7 @@ sudo dpkg -i ../linux-image-${KERNELVERSION}_${KERNELVERSION}-$(cat .version)_am
 ############################################################################
 
 
-if [ ! -e "${BUILD_DIR}/bcachefs-tools" ]; then
+if [ ! -e "${BUILD_DIR}/bcachefs-tools/.git" ]; then
     git clone https://evilpiepirate.org/git/bcachefs-tools.git "${BUILD_DIR}/bcachefs-tools"
 fi
 
@@ -63,3 +63,8 @@ make || exit $?
 sudo make install
 
 #cd /mnt/bcachefs/
+
+
+# Additional Ubuntu dependencies (Ubuntu server LTS 18.4.2)
+#apt install bison
+#apt install flex
